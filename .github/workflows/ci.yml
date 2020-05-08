@@ -3,7 +3,7 @@ name: CI
 on:
   pull_request:
   push:
-    branches: master
+    # branches: master
 
 jobs:
   website:
@@ -34,6 +34,7 @@ jobs:
 
     - name: Install apt requirements
       run: |
+        sudo apt-get update
         sudo apt-get install libxslt-dev libxml2-dev
         gem install bundler
 
@@ -58,7 +59,7 @@ jobs:
     - name: Write new README for output repo
       run: |
         echo "# WARNING: Do not edit this generated repository; edit [iris-hep.github.io-source](https://github.com/iris-hep/iris-hep.github.io-source) instead!" > _site/README.md
-    
+
     - name: Deploy
       if: success() && github.event_name == 'push' && github.ref == 'refs/heads/master'
       uses: peaceiris/actions-gh-pages@v3
